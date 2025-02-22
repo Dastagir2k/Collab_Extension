@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Collab Tool4 ",
+    "version": "1.0",
+    "description": "Collab tool with Highlight text on any webpage, copy it along with the page URL, and display it in the popup.",
+    "action": {
+      "default_popup": "index.html"
+    },
+    "permissions": ["activeTab", "storage", "scripting", "contextMenus","sidePanel"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "./background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["./content.js"],
+        "run_at": "document_end"
+      }
+    ]
+  }
+  
