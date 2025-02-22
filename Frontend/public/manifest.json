@@ -4,9 +4,12 @@
     "version": "1.0",
     "description": "Collab tool with Highlight text on any webpage, copy it along with the page URL, and display it in the popup.",
     "action": {
-      "default_popup": "index.html"
+      "default_title": "Open Side Panel"
     },
-    "permissions": ["activeTab", "storage", "scripting", "contextMenus","sidePanel"],
+    "side_panel": {
+      "default_path": "index.html"
+    },
+    "permissions": ["activeTab", "storage", "scripting", "contextMenus","sidePanel", "tabs"],
     "host_permissions": ["<all_urls>"],
     "background": {
       "service_worker": "./background.js"

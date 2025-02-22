@@ -1,3 +1,13 @@
+chrome.runtime.onInstalled.addListener(()=>{
+  chrome.sidePanel.setPanelBehavior({
+    openPanelOnActionClick: true
+  });
+});
+
+chrome.action.onClicked.addListener(async (tab)=> {
+  await chrome.sidePanel.setOptions({tabId: tab.id, path: "index.html"})
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("Received message in background:", message);
 
