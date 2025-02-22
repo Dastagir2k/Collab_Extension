@@ -1,3 +1,4 @@
+
 document.addEventListener("mouseup", () => {
   const selectedText = window.getSelection().toString().trim();
   const pageUrl = window.location.href;

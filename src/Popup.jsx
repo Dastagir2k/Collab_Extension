@@ -1,49 +1,48 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
 function Popup() {
-  const [data, setData] = useState({ text: "", url: "" });
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    // Load stored data on mount
-    chrome.storage.local.get(["selectedText", "pageUrl"], (result) => {
-      if (result.selectedText && result.pageUrl) {
-        setData({ text: result.selectedText, url: result.pageUrl });
+    // Load stored history on mount
+    chrome.storage.local.get(["history"], (result) => {
+      if (result.history) {
+        setHistory(result.history);
       }
     });
   }, []);
 
   // Handle key down events on the popup div
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      console.log("Enter key pressed!");
-      console.log("Selected Text:", data.text);
-      console.log("Page URL:", data.url);
-      // Open the URL in a new tab
-      if (data.url) {
-        chrome.tabs.create({ url: data.url });
-      }
+  const handleKeyDown = (event, url) => {
+    if (event.key === "Enter" && url) {
+      chrome.tabs.create({ url });
     }
   };
 
-  return  (
-    <div
-      style={{ padding: "10px", width: "250px" }}
-      tabIndex={0}  // makes the div focusable to capture key events
-      onKeyDown={handleKeyDown}
-      className="bg-red-500 text-2xl"
-    >
-      <h2>Highlighted Texttttt</h2>
-      <p>{data.text || "No text selected"}</p>
-      <h3>Source URL</h3>
-      <a href={data.url} target="_blank" rel="noopener noreferrer">
-        {data.url || "No URL"}
-      </a>
-      <p style={{ fontSize: "0.8rem", color: "gray" }}>
-        Press Enter to log and open the URL.
-      </p>
-    </div> 
-  )
- 
+  return (
+    <div style={{ padding: "10px", width: "300px" }} className="bg-red-500 text-white">
+      <h2 className="text-xl font-bold">Highlighted History</h2>
+      {history.length > 0 ? (
+        history.map((item, index) => (
+          <div
+            key={index}
+            tabIndex={0} // Makes it focusable for key events
+            onKeyDown={(event) => handleKeyDown(event, item.url)}
+            className="border-b border-gray-300 p-2"
+          >
+            <p className="text-lg">"{item.text}"</p>
+            <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-blue-300">
+              {item.url}
+            </a>
+            <p className="text-sm text-gray-300">Saved on: {new Date(item.timestamp).toLocaleString()}</p>
+          </div>
+        ))
+      ) : (
+        <p>No data available</p>
+      )}
+    </div>
+  );
 }
 
 export default Popup;
