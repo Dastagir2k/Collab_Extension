@@ -1,11 +1,19 @@
 Step1: cd Collab_Extension
+
 Step2: npm install
+
 Step3: npm run build
+
 Step4: Redirect to chrome://extensions/
+
 Step5: Click on Load unpacked and upload the dist folder we built for this project.
+
 Step6: Now you can open any blog or website and you can select the content needs to saved in this tool
+
 Step7: Right-click on the selected text and select "Add to Collab Assist".
+
 Step8: Now if you open our extension, Extension Sidebar will be opened and you see the text which is saved and the url of the blog/webpage.
+
 Step9: You can add to specific room and share the room id with your friends to share many references for single topics.
 
 
