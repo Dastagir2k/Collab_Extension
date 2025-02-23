@@ -276,15 +276,18 @@ html,body{font-family: Arial, sans-serif;
   .pink{
     display: flex !important;
     flex-direction:column !important;
-    background-color: #FF5290 !important;
+    background-color: #FFFF00 !important;
     width: 100% !important;
     height: 50px !important;
     padding: 0px !important;
     position: relative !important;
+    color: #000000;
+    text-align:center;
+
   }
   .p{
     margin-left:25%;
-    color: white;
+    color: #000000;
     padding: 0px;
     margin-top: 2px;
 }
@@ -313,4 +316,10 @@ h2 {
   animation: highlight 5s linear infinite;
   color: white;
   cursor: pointer;
+}
+.join-room-sec {
+  margin-top:5px,
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
