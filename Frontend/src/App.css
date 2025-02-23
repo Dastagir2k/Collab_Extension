@@ -1,42 +1,265 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+html,body{font-family: Arial, sans-serif;
+  background-color: white;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    color: #333;
+    width: 100%;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+#root{
+  width:100%;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.border{
+    border-radius: 10px;
+    border-color: white;
+    color: white;
+    background-color: black;
+    border-width:2px;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.p{
+    margin-left:25%;
+}
+@keyframes highlight {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
   }
-  to {
-    transform: rotate(360deg);
+  
+  .highlighted-paragraph {
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 10px;
+    background: linear-gradient(120deg, #4a3b0a 0%, #d47358 50%, #f6d365 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: highlight 5s linear infinite;
+    position: relative;
+    display: inline-block;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  
+  .highlighted-paragraph::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(120deg, #fda085, #f6d365,#9a7d20);
+    animation: highlight 5s linear infinite;
   }
+
+  .aesthetic-paragraph {
+    font-size: 12px;
+    line-height: 1.6;
+    padding: 10px;
+    background: linear-gradient(120deg, #f6d365, #fda085);
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 15%;
+  }
+  
+  .aesthetic-paragraph:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  .animated-paragraph {
+  font-size:12px; 
+  padding: 10px; 
+  background-color: rgb(220, 209, 209);
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  text-decoration: none;
+  margin-left: 10%;
+  height: auto; 
+  width: 70%; 
+  display: inline-block;
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  }
+  
+  .animated-paragraph:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .animated-word {
+    display: flex;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animated-word:nth-child(1) { animation-delay: 0.1s; }
+  .animated-word:nth-child(2) { animation-delay: 0.2s; }
+  .animated-word:nth-child(3) { animation-delay: 0.3s; }
+  
+  .highlighted-paragraph {
+    font-size: 18px;
+    padding: 10px;
+    background-color:rgb(87, 81, 81);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color:black;
+    animation: highlight 5s linear infinite;
+    position: relative;
+    display:flexbox;
+    margin-left: 15%;
+  }
+  
+  .highlighted-paragraph::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 50%;
+    border-color: black;
+    margin-left: 25%;
+   
+  }
+
+  .high-paragraph {
+    font-size: 18px;
+    padding: 5px;
+    border-width: 5px;
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: black;
+    animation: highlight 5s linear infinite;
+    position: relative;
+    display: flexbox;
+  }
+  
+  .high-paragraph::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 100%;
+    background:radial-gradient(circle, rgba(58,120,180,1) 0%, rgba(137,29,253,1) 50%, rgba(252,176,69,1) 100%);
+    animation: highlight 5s linear infinite;
+  }
+
+  .elegant-paragraph {
+    font-size: 14px;
+    line-height: 1.2;
+    padding: 5px;
+    background-color: rgb(194, 184, 184);
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width:65%;
+    margin-left: 15%;
+  }
+  
+  .elegant-paragraph:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  @keyframes text-glow {
+    0% {
+      text-shadow: 0 0 10px rgba(255, 223, 186, 0.5);
+    }
+    100% {
+      text-shadow: 0 0 20px rgba(255, 223, 186, 1);
+    }
+  }
+  
+  .elegant-paragraph span {
+    display: inline-block;
+    animation: text-glow 2s ease-in-out infinite alternate;
+  }
+.black{
+    color: black;
+
 }
 
-.card {
-  padding: 2em;
+.accordion-item {
+  border-top: 1px solid #ccc;
+  background-color: #f9f9f9;
 }
 
-.read-the-docs {
-  color: #888;
+.accordion-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
+
+.accordion-button:hover {
+  background-color: #eee;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 15px;
+}
+
+.accordion-content p {
+  margin-top: 15px 0;
+  margin-left: 5%;
+}
+
+.accordion-button.active + .accordion-content {
+  max-height: 200px; /* Adjust this value based on your content height */
+}
+.dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  display: none;
+}
+
+.dropdown-button.active + .dropdown-content {
+  display: block;
+}
+
+.accordion-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.button{
+  background-color: rgb(223, 216, 216);
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  padding: 5px;
+}
+.button:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
