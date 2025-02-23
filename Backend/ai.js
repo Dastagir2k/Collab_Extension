@@ -1,4 +1,7 @@
 import { ChatOllama } from "@langchain/ollama";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function LLMCall(userPrompt) {
   try {
