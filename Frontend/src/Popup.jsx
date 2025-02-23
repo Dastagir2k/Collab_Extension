@@ -1,8 +1,38 @@
 import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-
 function Popup() {
   const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+      console.log("atleast calling hre!!!", info);
+      if (info.menuItemId === "addContentContextMenu") {
+        const newEntry = {
+          text: info.selectionText,
+          url: info.pageUrl,
+          timestamp: Date.now(),
+        };
+        chrome.storage.local.get(["history"], (result) => {
+          let historyData = [];
+          if (result.history?.length) {
+            historyData = [...result.history];
+          }
+          const updatedHistory = [...historyData, newEntry];
+          console.log("updatedHistory>>", updatedHistory);
+          setHistory(updatedHistory);
+          chrome.storage.local.set({ history: updatedHistory }, () => {
+            if (chrome.runtime.lastError) {
+              console.error("Storage set error:", chrome.runtime.lastError);
+            } else {
+              console.log(
+                "Data stored successfully in history:",
+                updatedHistory
+              );
+            }
+          });
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     // Load stored history on mount
@@ -13,35 +43,79 @@ function Popup() {
     });
   }, []);
 
-  // Handle key down events on the popup div
+  useEffect(() => {
+    console.log("history onChange>>>", history);
+  }, [history]);
+
   const handleKeyDown = (event, url) => {
     if (event.key === "Enter" && url) {
       chrome.tabs.create({ url });
     }
   };
 
+  const toggleAccordion = (event) => {
+    const button = event.currentTarget;
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", !isExpanded);
+    button.classList.toggle("active");
+    const content = button.nextElementSibling;
+    if (button.classList.contains("active")) {
+      console.log("content.scrollHeight>>", content.scrollHeight);
+      content.style.maxHeight = "100vh";
+    } else {
+      content.style.maxHeight = 0;
+    }
+  };
+
+  const openLink = (url) => {
+    chrome.tabs.create({ url });
+  };
+
   return (
-    <div style={{ padding: "10px", width: "300px" }} className="bg-red-500 text-white">
-      <h2 className="text-xl font-bold">Highlighted History</h2>
-      {history.length > 0 ? (
-        history.map((item, index) => (
-          <div
-            key={index}
-            tabIndex={0} // Makes it focusable for key events
-            onKeyDown={(event) => handleKeyDown(event, item.url)}
-            className="border-b border-gray-300 p-2"
-          >
-            <p className="text-lg">"{item.text}"</p>
-            <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-blue-300">
-              {item.url}
-            </a>
-            <p className="text-sm text-gray-300">Saved on: {new Date(item.timestamp).toLocaleString()}</p>
-          </div>
-        ))
-      ) : (
-        <p>No data available</p>
-      )}
-    </div>
+    <>
+      <div className='pink'>
+        <h2>
+          <p className='p'>Collab tool extension</p>
+        </h2>
+      </div>
+      <h2 className='simple_line'></h2>
+      <button
+        className='accordion-button'
+        onClick={toggleAccordion}
+        aria-expanded='false'
+      >
+        <span className='arrow'>▶</span> Group
+      </button>
+      <div className='accordion-content' key={history.length}>
+        {history.length > 0 ? (
+          history.map((item, index) => (
+            <div
+              key={index + item.timestamp}
+              className='accordion-item'
+              tabIndex={index}
+              onKeyDown={(event) => handleKeyDown(event, item.url)}
+            >
+              <div className='animated-paragraph word'>
+                <p>{item.text}</p>
+                <p style={{ fontWeight: "bold" }}>
+                  Saved on: {new Date(item.timestamp).toLocaleString()}
+                </p>
+                <div className='button_class'>
+                  <button
+                    className='link_button'
+                    onClick={() => openLink(item.url)}
+                  >
+                    Link
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No data available</p>
+        )}
+      </div>
+    </>
   );
 }
 
